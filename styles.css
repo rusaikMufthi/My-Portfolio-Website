@@ -7,7 +7,7 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow-x: hidden;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #4c5fd4 0%, #5a3780 100%);
     min-height: 100vh;
 }
 
@@ -18,7 +18,7 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #4c5fd4 0%, #5a3780 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
