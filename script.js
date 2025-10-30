@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
             initNavigation();
             initScrollAnimations();
             initSkillsAnimation();
+            initProjectsAnimation();
         }, 500);
     }, 7000); // 7 seconds
 });
@@ -168,4 +169,50 @@ function initSkillsAnimation() {
     
     // Check on load
     animateSkills();
+}
+
+// Projects section animation
+function initProjectsAnimation() {
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + 200 &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+    
+    // Function to animate project cards
+    function animateProjects() {
+        projectCards.forEach((card, index) => {
+            if (isInViewport(card) && !card.classList.contains('animated')) {
+                setTimeout(() => {
+                    card.classList.add('animated');
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) rotateX(0deg)';
+                }, index * 150); // Stagger animation
+            }
+        });
+    }
+    
+    // Add click event to project cards
+    projectCards.forEach(card => {
+        card.addEventListener('click', function() {
+            // Add a pulse effect on click
+            this.style.animation = 'none';
+            setTimeout(() => {
+                this.style.animation = '';
+            }, 10);
+        });
+    });
+    
+    // Check on scroll
+    window.addEventListener('scroll', animateProjects);
+    
+    // Check on load
+    animateProjects();
 }
