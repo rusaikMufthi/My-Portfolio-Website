@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             mainContent.classList.add('show');
             initNavigation();
             initScrollAnimations();
+            initSkillsAnimation();
         }, 500);
     }, 7000); // 7 seconds
 });
@@ -119,4 +120,52 @@ function initScrollAnimations() {
     
     // Check on load
     animateOnScroll();
+}
+
+// Skills section animation
+function initSkillsAnimation() {
+    const skillCategories = document.querySelectorAll('.skill-category');
+    const skillProgressBars = document.querySelectorAll('.skill-progress');
+    
+    // Set initial width to 0 and store target progress
+    skillProgressBars.forEach(bar => {
+        const progress = bar.getAttribute('data-progress');
+        bar.style.setProperty('--progress', progress + '%');
+        bar.style.width = '0%';
+    });
+    
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + 100 &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+    
+    // Function to animate skill bars
+    function animateSkills() {
+        skillCategories.forEach(category => {
+            if (isInViewport(category) && !category.classList.contains('in-view')) {
+                category.classList.add('in-view');
+                
+                // Animate each progress bar in this category
+                const progressBars = category.querySelectorAll('.skill-progress');
+                progressBars.forEach((bar, index) => {
+                    setTimeout(() => {
+                        const progress = bar.getAttribute('data-progress');
+                        bar.style.width = progress + '%';
+                    }, index * 150); // Stagger animation
+                });
+            }
+        });
+    }
+    
+    // Check on scroll
+    window.addEventListener('scroll', animateSkills);
+    
+    // Check on load
+    animateSkills();
 }
