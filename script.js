@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(function() {
             mainContent.classList.add('show');
             initNavigation();
+            initScrollAnimations();
         }, 500);
     }, 7000); // 7 seconds
 });
@@ -85,4 +86,37 @@ function initScrollAnimations() {
     if (aboutSection) {
         observer.observe(aboutSection);
     }
+}
+
+// Scroll animations for timeline items
+function initScrollAnimations() {
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + 200 &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+    
+    // Function to add animation class to visible items
+    function animateOnScroll() {
+        timelineItems.forEach((item, index) => {
+            if (isInViewport(item)) {
+                setTimeout(() => {
+                    item.classList.add('animate');
+                }, index * 200); // Stagger animation
+            }
+        });
+    }
+    
+    // Check on scroll
+    window.addEventListener('scroll', animateOnScroll);
+    
+    // Check on load
+    animateOnScroll();
 }
