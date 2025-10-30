@@ -249,7 +249,14 @@ main {
 
 /* About Section */
 .about-section {
-    animation: fadeInUp 1s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.about-section.animate {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .about-container {
